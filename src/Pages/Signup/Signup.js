@@ -12,7 +12,7 @@ import WorkEmail from "./components/WorkEmail";
 
 var url = window.location.href;
 
-const Signup = () => {
+const Signup = ({ provideEmail }) => {
   const step0Content = <h1>11</h1>;
   const step1Content = <WorkEmail />;
   const step2Content = <EnterOTP />;
@@ -41,51 +41,85 @@ const Signup = () => {
             nextBtnName="Done"
             submitBtnName="Done"
             // onSubmit={}
-            steps={[
-              {
-                // label: "Briefing",
-                name: "Briefing",
-                content: step0Content,
-              },
-              {
-                name: "Briefing",
-                content: step1Content,
-              },
-              {
-                name: "Image-Acquisition",
-                content: step2Content,
-              },
+            steps={
+              provideEmail
+                ? [
+                    {
+                      // label: "Briefing",
+                      name: "Briefing",
+                      content: step0Content,
+                    },
+                    {
+                      name: "Briefing",
+                      content: step1Content,
+                    },
+                    {
+                      name: "Image-Acquisition",
+                      content: step2Content,
+                    },
 
-              {
-                name: "Finish",
-                content: step3Content,
-              },
-              {
-                name: "Finish",
-                content: step4Content,
-              },
-              {
-                name: "Finish",
-                content: step5Content,
-              },
-              {
-                name: "Finish",
-                content: step6Content,
-              },
-              {
-                name: "Finish",
-                content: step7Content,
-              },
-              {
-                name: "Finish",
-                content: step8Content,
-              },
-              // {
-              //     name: "Image Processing",
-              //     content: step3Content,
-              //     validator: step2Validator
-              // },
-            ]}
+                    {
+                      name: "Finish",
+                      content: step3Content,
+                    },
+                    {
+                      name: "Finish",
+                      content: step4Content,
+                    },
+                    {
+                      name: "Finish",
+                      content: step5Content,
+                    },
+                    {
+                      name: "Finish",
+                      content: step6Content,
+                    },
+                    {
+                      name: "Finish",
+                      content: step7Content,
+                    },
+                    {
+                      name: "Finish",
+                      content: step8Content,
+                    },
+                  ]
+                : [
+                    {
+                      // label: "Briefing",
+                      name: "Briefing",
+                      content: step0Content,
+                    },
+                    {
+                      name: "Image-Acquisition",
+                      content: step2Content,
+                    },
+
+                    {
+                      name: "Finish",
+                      content: step3Content,
+                    },
+                    {
+                      name: "Finish",
+                      content: step4Content,
+                    },
+                    {
+                      name: "Finish",
+                      content: step5Content,
+                    },
+                    {
+                      name: "Finish",
+                      content: step6Content,
+                    },
+                    {
+                      name: "Finish",
+                      content: step7Content,
+                    },
+                    {
+                      name: "Finish",
+                      content: step8Content,
+                    },
+                  ]
+            }
           />
         </div>
       </div>

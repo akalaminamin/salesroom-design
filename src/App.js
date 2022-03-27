@@ -1,15 +1,14 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useState } from "react";
 
-import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const Login = lazy(() => import("./Pages/Login/Login"));
 const Signup = lazy(() => import("./Pages/Signup/Signup"));
-
 function App() {
+  const [provideEmail, setProvideEmail] = useState(false);
   return (
-    <div className="">
+    <>
       <Router>
         <Suspense
           fallback={
@@ -22,13 +21,19 @@ function App() {
           }
         >
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="GetStarted/Signup" element={<Signup />} />
+            <Route
+              path="/"
+              element={<Login setProvideEmail={setProvideEmail} />}
+            />
+            <Route
+              path="GetStarted/Signup"
+              element={<Signup provideEmail={provideEmail} />}
+            />
             <Route path="/Signup" element={<Signup />} />
           </Routes>
         </Suspense>
       </Router>
-    </div>
+    </>
   );
 }
 

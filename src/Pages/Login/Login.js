@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setProvideEmail }) => {
   return (
     <>
       <div className=" h-screen">
@@ -17,7 +17,11 @@ const Login = () => {
             <Link to="/" className="text-[20px] font-semibold cursor-pointer">
               Login
             </Link>
-            <Link to="GetStarted/Signup" className="btn-blue">
+            <Link
+              to="GetStarted/Signup"
+              className="btn-blue"
+              onClick={() => setProvideEmail(true)}
+            >
               Get Started
             </Link>
           </div>
@@ -57,6 +61,7 @@ const Login = () => {
                 <Link
                   to="/Signup"
                   className="btn-black text-[22px] px-8 py-3 z-10"
+                  onClick={()=>setProvideEmail(false)}
                 >
                   Sign up
                 </Link>
