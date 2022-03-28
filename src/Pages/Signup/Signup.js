@@ -7,6 +7,8 @@ import CompanyLogoWebsite from "./components/CompanyLogoWebsite";
 import EnterOTP from "./components/EnterOTP";
 import EnterPassword from "./components/EnterPassword";
 import NameYourRoom from "./components/NameYourRoom";
+import SalesroomToWork from "./components/SalesroomToWork";
+import SocialMediaLink from "./components/SocialMediaLinks";
 
 import WorkEmail from "./components/WorkEmail";
 
@@ -20,14 +22,13 @@ const Signup = ({ provideEmail }) => {
   const step4Content = <NameYourRoom />;
   const step5Content = <CompanyLogoWebsite />;
   const step6Content = <CompanyAddress />;
-  const step7Content = <h1>7</h1>;
-  const step8Content = <h1>8</h1>;
+  const step7Content = <SalesroomToWork/>;
+  const step8Content = <SocialMediaLink />;
 
   // setup step validators, will be called before proceeding to the next step
   function step2Validator() {
     return true;
   }
-
   return (
     <div className="bg-[#ecedf0] signup">
       <div className="grid grid-cols-1  h-screen">
@@ -36,7 +37,7 @@ const Signup = ({ provideEmail }) => {
         </div>
         <div className="min-h-[84vh]">
           <StepProgressBar
-            // progressClass="progressClass"
+            // progressclassName="progressClass"
             startingStep={1}
             nextBtnName="Done"
             submitBtnName="Done"

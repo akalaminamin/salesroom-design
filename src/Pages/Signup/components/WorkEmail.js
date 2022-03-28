@@ -11,33 +11,29 @@ const WorkEmail = () => {
       handleSubmit,
       formState: { errors },
     } = useForm();
-    const onSubmit = handleSubmit((data) => formData(data));
 
     const [formValues, setFormValues] = useState({
       email: "",
     });
-
+    const onSubmit = (data) => {
+      if (!data) {
+        alert("all field is empty");
+      }
+    };
     const handleChange = (e) => {
       const values = e.target.value;
       setFormValues({ ...formValues, [e.target.name]: values });
     };
 
-    const formData = (data) => {
-      if (!data) {
-        alert("all field is empty");
-      }
-      console.log(data);
-    };
-
     return (
       <div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-4 gap-3">
             <div className="col-span-4">
               <input
                 {...register("email", { required: true })}
                 placeholder="Enter your work email"
-                name="email"
+                type="email"
                 autoComplete="off"
                 value={formValues.email}
                 onChange={handleChange}
@@ -49,8 +45,7 @@ const WorkEmail = () => {
 
             <div className="col-span-4 flex justify-between">
               <Link to="/">SKIP</Link>
-
-              <button onClick={onSubmit}>Done</button>
+              <button type="submit">Done</button>
             </div>
           </div>
         </form>

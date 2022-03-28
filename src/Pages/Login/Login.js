@@ -1,7 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Login = ({ setProvideEmail }) => {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    if (!data) {
+      alert("all field is empty");
+    }
+    setProvideEmail(false);
+    navigate("/signup");
+  };
   return (
     <>
       <div className=" h-screen">
@@ -51,21 +65,28 @@ const Login = ({ setProvideEmail }) => {
                   className="h-28"
                 />
               </div>
-              <div className="flex items-center w-fit ml-auto">
+              <form
+                className="flex items-center w-fit ml-auto"
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <input
-                  type="text"
+                  type="email"
+                  autoComplete="off"
                   placeholder="Enter Email"
                   className="input-signup bg-[#ecedf0] pl-8 pr-12 py-4 rounded-full relative -right-10 w-96"
                   style={{ marginBottom: 0 }}
+                  {...register("email", { required: true })}
                 />
-                <Link
-                  to="/Signup"
+                <span className="errormsg loginError">
+                  {errors.email && "email input is required"}
+                </span>
+                <button
+                  type="submit"
                   className="btn-black text-[22px] px-8 py-3 z-10"
-                  onClick={()=>setProvideEmail(false)}
                 >
                   Sign up
-                </Link>
-              </div>
+                </button>
+              </form>
             </div>
           </div>
         </div>
