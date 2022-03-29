@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-// import { Form, Input, Button, Checkbox } from 'antd';
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-// import './CSS/SalesroomForm.css'
 
 const EnterPassword = () => {
   const SalesroomForm = () => {
@@ -10,41 +8,32 @@ const EnterPassword = () => {
       register,
       handleSubmit,
       formState: { errors },
-    } = useForm();
-    const onSubmit = handleSubmit((data) => formData(data));
-
-    const [formValues, setFormValues] = useState({
-      password: "",
+    } = useForm({
+      mode: "onTouched",
     });
-
-    const handleChange = (e) => {
-      const values = e.target.value;
-      setFormValues({ ...formValues, [e.target.name]: values });
-    };
-
-    const formData = (data) => {
-      if (!data) {
-        alert("all field is empty");
-      }
-      console.log(data);
-    };
-
+    const [password, setPassword] = useState("");
+    const onSubmit = (data) => {};
     return (
       <div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-4 gap-3">
             <div className="col-span-4">
               <input
-                {...register("password", { required: true })}
+                {...register("password", {
+                  required: "password is required",
+                  minLength:{
+                    value:8,
+                    message:"Password should be of minimum 8 characters"
+                  },
+                })}
                 placeholder="Enter password"
-                name="password"
                 type="password"
                 autoComplete="off"
-                value={formValues.password}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <span className="errormsg">
-                {errors.password?.type === "required" && "Password is required"}
+                {errors.password && errors.password.message}
               </span>
             </div>
 

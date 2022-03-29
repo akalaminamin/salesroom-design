@@ -8,7 +8,9 @@ const Login = ({ setProvideEmail }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode:"onTouched"
+  });
   const onSubmit = (data) => {
     if (!data) {
       alert("all field is empty");
@@ -67,18 +69,24 @@ const Login = ({ setProvideEmail }) => {
               </div>
               <form
                 className="flex items-center w-fit ml-auto"
-                onSubmit={handleSubmit(onSubmit)}
-              >
+                onSubmit={handleSubmit(onSubmit)}>
                 <input
-                  type="email"
+                  type="text"
                   autoComplete="off"
                   placeholder="Enter Email"
                   className="input-signup bg-[#ecedf0] pl-8 pr-12 py-4 rounded-full relative -right-10 w-96"
                   style={{ marginBottom: 0 }}
-                  {...register("email", { required: true })}
+                  {...register("email", {
+                    required: "This field is required",
+                    pattern: {
+                      value:
+                        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      message: "Enter a valid email address",
+                    },
+                  })}
                 />
                 <span className="errormsg loginError">
-                  {errors.email && "email input is required"}
+                  {errors?.email && errors.email.message}
                 </span>
                 <button
                   type="submit"

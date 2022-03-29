@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-// import { Form, Input, Button, Checkbox } from 'antd';
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-// import './CSS/SalesroomForm.css'
 
 const WorkEmail = () => {
   const SalesroomForm = () => {
@@ -10,39 +8,41 @@ const WorkEmail = () => {
       register,
       handleSubmit,
       formState: { errors },
-    } = useForm();
+    } = useForm({
+      mode: "onTouched",
+    });
 
     const [formValues, setFormValues] = useState({
       email: "",
     });
-    const onSubmit = (data) => {
-      if (!data) {
-        alert("all field is empty");
-      }
-    };
+    const onSubmit = (data) => {};
     const handleChange = (e) => {
-      const values = e.target.value;
-      setFormValues({ ...formValues, [e.target.name]: values });
+      const { name, value } = e.target.value;
+      setFormValues({ ...formValues, [name]: value });
     };
-
     return (
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-4 gap-3">
             <div className="col-span-4">
               <input
-                {...register("email", { required: true })}
                 placeholder="Enter your work email"
                 type="email"
                 autoComplete="off"
-                value={formValues.email}
                 onChange={handleChange}
+                {...register("email", {
+                  required: "This field is required",
+                  pattern: {
+                    value:
+                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: "Enter a valid email address",
+                  },
+                })}
               />
               <span className="errormsg">
-                {errors.email?.type === "required" && "Email is required"}
+                {errors?.email && errors.email.message}
               </span>
             </div>
-
             <div className="col-span-4 flex justify-between">
               <Link to="/">SKIP</Link>
               <button type="submit">Done</button>

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-// import { Form, Input, Button, Checkbox } from 'antd';
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-// import './CSS/SalesroomForm.css'
 
 const CompanyLogoWebsite = () => {
   const SalesroomForm = () => {
@@ -10,48 +8,35 @@ const CompanyLogoWebsite = () => {
       register,
       handleSubmit,
       formState: { errors },
-    } = useForm();
-    const onSubmit = handleSubmit((data) => formData(data));
-
-    const [formValues, setFormValues] = useState({
-      website: "",
+    } = useForm({
+      mode:"onTouched"
     });
 
-    const handleChange = (e) => {
-      const values = e.target.value;
-      setFormValues({ ...formValues, [e.target.name]: values });
-    };
-
-    const formData = (data) => {
-      if (!data) {
-        alert("all field is empty");
-      }
-      console.log(data);
-    };
-
+    const [webLink, setWebLink] = useState("");
+    const onSubmit = (data) => {};
     return (
       <div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-4 gap-3">
             <div className="col-span-4">
               <input
-                {...register("website", { required: true })}
+                {...register("webLink", {
+                  required: "Enter your website link",
+                })}
                 placeholder="Paste Website Link"
-                name="website"
                 autoComplete="off"
-                value={formValues.website}
-                onChange={handleChange}
+                value={webLink}
+                onChange={(e) => setWebLink(e.target.value)}
               />
               <span className="errormsg">
-                {errors.website?.type === "required" &&
-                  "Website link is required"}
+                {errors.webLink && errors.webLink.message}
               </span>
             </div>
 
             <div className="col-span-4 flex justify-between">
               <Link to="/">SKIP</Link>
 
-              <button onClick={onSubmit}>Done</button>
+              <button type="submit">Done</button>
             </div>
           </div>
         </form>

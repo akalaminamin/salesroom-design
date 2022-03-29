@@ -10,47 +10,36 @@ const NameYourRoom = () => {
       register,
       handleSubmit,
       formState: { errors },
-    } = useForm();
-    const onSubmit = handleSubmit((data) => formData(data));
-
-    const [formValues, setFormValues] = useState({
-      email: "",
+    } = useForm({
+      mode: "onTouched",
     });
-
-    const handleChange = (e) => {
-      const values = e.target.value;
-      setFormValues({ ...formValues, [e.target.name]: values });
-    };
-
-    const formData = (data) => {
-      if (!data) {
-        alert("all field is empty");
-      }
-      console.log(data);
-    };
-
+    const [roomName, setRoomName] = useState("");
+    const onSubmit = (data) => {};
+    console.log(errors)
     return (
       <div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-4 gap-3">
             <div className="col-span-4">
               <input
-                {...register("email", { required: true })}
-                placeholder="Enter your work email"
-                name="email"
+                {...register("roomName", {
+                  required: "Please enter your room name",
+                })}
+                type="text"
+                placeholder="You can enter your company name"
                 autoComplete="off"
-                value={formValues.email}
-                onChange={handleChange}
+                value={roomName}
+                onChange={(e) => setRoomName(e.target.value)}
               />
               <span className="errormsg">
-                {errors.email?.type === "required" && "Email is required"}
+                {errors.roomName && errors.roomName.message}
               </span>
             </div>
 
             <div className="col-span-4 flex justify-between">
               <Link to="/">SKIP</Link>
 
-              <button onClick={onSubmit}>Done</button>
+              <button type="submit">Done</button>
             </div>
           </div>
         </form>
